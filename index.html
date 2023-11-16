@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>shoes</title>
+
+
+	<style type="text/css">
+		*,*:before,*:after{
+			box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+		}
+		body{
+			font-family: Roboto,sans-serif;
+			padding: 0;
+			margin:	0;
+			color: #fff;
+			/*background-image:linear-gradient(to right,#cd001e,#cd0722);*/
+			/*background-image:linear-gradient(to left,#ffa604,#faa304);*/
+			/*background-image: radial-gradient(circle,#fec746,#ffab0a);*/
+			background-image: radial-gradient(circle,#d31725,#cc021c);
+			
+		}
+		a{
+			display: inline-block;
+			color:#fff;
+			text-decoration: none;
+			font-size: x-large;
+		}
+		#content{
+			display: flex;
+			flex-direction: column;
+			height: 100vh;
+			padding: 10px;
+			text-transform: capitalize;
+		}
+		header nav{
+			/*background-color: grey;*/
+			text-align: center;
+		}
+		header nav ul{
+			display: flex;
+			justify-content: space-between;
+			list-style-type: none;
+			padding: 0;
+			margin: 0;
+		}
+		header nav h3,
+		header nav p{
+			margin: 0;
+		}
+		main{
+			flex-grow: 1;
+		}
+		.carousel{
+			position: relative;
+			/*height: 100%;*/
+			text-align: center;
+			/*background-color: pink;*/
+			transition:all 1s ease-in-out;
+		}
+		.carousel>.composant>a{
+			position: absolute;
+			bottom: 50%;
+			font-size: 3em;
+		}
+		#right{
+			right: 0;
+		}
+		#left{
+			left: 0;
+		}
+		.slider{
+			display: none;
+			visibility: hidden;
+			position: relative;
+		}
+		.active{
+			display: block;
+			visibility: visible;
+		}
+		
+		.slider article{
+			position: absolute;
+			bottom:10px;
+			left: 0;
+			right: 0;
+		}
+		.slider article>h1{
+			margin: 0;
+			font-size: 6rem;
+			opacity: .7;
+		}
+		.slider article>a{
+			background-color: rgba(0,0,0,.5);
+			padding: 10px 20px;
+		}
+		header nav p,
+		.progress i{
+			color: rgba(0,0,0,.5);
+			transition:all 1s ease-in-out;
+		}
+		.selected{
+			color: #fff !important;
+			font-weight: bold !important;
+		}
+		.slider img{
+			object-fit: cover;
+			height: 85vh;
+			width: 100%;
+		}
+
+	</style>
+
+
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+</head>
+<body>
+	<div id="content">
+		<header>
+			<nav>
+				<ul>
+					<li><a href="#"><i class="fa fa-bars"></i></a></li>
+					<li>
+						<a href="#"><i class="fas fa-shoe-prints"></i></a>
+						<h3>shoe are us</h3>
+						<p>find the right fit for you</p>
+					</li>
+					<li><a href="#"><i class="fa fa-phone"></i></a></li>
+				</ul>
+			</nav>
+		</header>
+		<main>
+			<div class="carousel">
+				<div class="slider active" data-bg="d31725">
+					<img src="shoe2.jpg" alt="nike shoe">
+					<article>
+						<h1>performance</h1>
+						<a href="#">learn more</a>
+					</article>
+				</div>
+				<div class="slider" data-bg="fec746">
+					<img src="shoe3.jpg" alt="nike shoe">
+					<article>
+						<h1>performance</h1>
+						<a href="#">learn more</a>
+					</article>
+				</div>
+				<div class="slider" data-bg="fff">
+					<img src="shoe1.jpg" alt="nike shoe">
+					<article>
+						<h1>performance</h1>
+						<a href="#">learn more</a>
+					</article>
+				</div>
+				
+				<div class="composant">
+					<a href="#" id="left"><i class="fas fa-chevron-left"></i></a>
+					<a href="#" id="right"><i class="fas fa-chevron-right"></i></a>
+					<div class="progress">
+					</div>
+				</div>
+			</div>
+		</main>
+	</div>
+
+	<script type="text/javascript">
+		var sliders=document.querySelectorAll('.slider'),
+			progress=document.querySelector('.progress'),
+			piles=progress.getElementsByTagName('i');
+		var left=document.querySelector('#left'),
+			right=document.querySelector('#right');
+		var current_slide=0,
+			sliders_length=sliders.length;
+
+		window.onload=function(){
+			document.body.style.background="#"+sliders[current_slide].getAttribute('data-bg');
+			piles[current_slide].classList.add('selected');
+		}
+		left.addEventListener('click',function(){
+			if(current_slide>0)
+			{
+				piles[current_slide].classList.remove('selected');
+				sliders[current_slide--].classList.remove("active");
+				sliders[current_slide].classList.add('active');
+				document.body.style.background="#"+sliders[current_slide].getAttribute('data-bg');
+				piles[current_slide].classList.add('selected');
+			}
+		});
+		right.addEventListener('click',function(){
+			if(current_slide<sliders_length-1)
+			{
+				piles[current_slide].classList.remove('selected');
+				sliders[current_slide++].classList.remove("active");
+				sliders[current_slide].classList.add('active');
+				document.body.style.background="#"+sliders[current_slide].getAttribute('data-bg');
+				piles[current_slide].classList.add('selected');
+			}
+		});
+
+		function grogress(){
+			for(let i=0;i<sliders_length;i++){
+				var prg=document.createElement('i');
+				prg.setAttribute('class','fa fa-circle');
+				progress.appendChild(prg);
+			}
+		}
+		grogress();
+	</script>
+</body>
+</html>
